@@ -58,6 +58,15 @@ namespace Image_Process
                 toolStripStatusLabel2.Text = string.Format("R:{0}, G:{1}, B:{2}",tempimg.GetPixel(e.X, e.Y).R.ToString(),
                 tempimg.GetPixel(e.X,e.Y).G.ToString(), tempimg.GetPixel(e.X, e.Y).B.ToString());
         }
+        private void pictureBox4_MouseMove(object sender, MouseEventArgs e)
+        {
+            Bitmap tempimg = (Bitmap)pictureBox4.Image;
+            toolStripStatusLabel1.Text = string.Format("X:{0}, Y:{1}", e.X, e.Y);
+            /*if (tempimg != null)
+                if ((e.X < tempimg.Width) && (e.Y < tempimg.Height))
+                    toolStripStatusLabel2.Text = string.Format("R:{0}, G:{1}, B:{2}", tempimg.GetPixel(e.X, e.Y).R.ToString(),
+                    tempimg.GetPixel(e.X, e.Y).G.ToString(), tempimg.GetPixel(e.X, e.Y).B.ToString());*/
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {

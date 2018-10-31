@@ -14,27 +14,27 @@ namespace Image_Process
     {
         public PCXHEAD header;
         /// <summary>  
-        /// PCX文件头  
+        /// PCX文件標頭 
         /// </summary>  
         public class PCXHEAD
         {
             public byte[] m_Data = new byte[128];
 
             /// <summary>  
-                        /// 文件头必须为 0A;  
-                        /// </summary>  
+            /// 文件頭必須為 0A;  
+            /// </summary>  
             public byte Manufacturer { get { return m_Data[0]; } }
             /// <summary>  
-                        /// 0：PC Paintbrush 2.5 版 　　2：PC Paintbrush 2.8 版　　5：PC Paintbrush 3.0 版  
-                        /// </summary>  
+            /// 0：PC Paintbrush 2.5 版 　　2：PC Paintbrush 2.8 版　　5：PC Paintbrush 3.0 版  
+            /// </summary>  
             public byte Version { get { return m_Data[1]; } set { m_Data[1] = value; } }
             /// <summary>  
-                        /// 其值为1时表示采用RLE压缩编码的方法  
-                        /// </summary>  
+            /// 其值為1時表示採用RLE壓缩编码的方法  
+            /// </summary>  
             public byte Encoding { get { return m_Data[2]; } set { m_Data[2] = value; } }
             /// <summary>  
-                        /// 每个相素的位数  
-                        /// </summary>  
+            /// 每個像素的位元
+            /// </summary>  
             public byte Bits_Per_Pixel { get { return m_Data[3]; } set { m_Data[3] = value; } }
 
             public ushort Xmin { get { return BitConverter.ToUInt16(m_Data, 4); } set { SetUshort(4, value); } }
@@ -42,12 +42,12 @@ namespace Image_Process
             public ushort Xmax { get { return BitConverter.ToUInt16(m_Data, 8); } set { SetUshort(8, value); } }
             public ushort Ymax { get { return BitConverter.ToUInt16(m_Data, 10); } set { SetUshort(10, value); } }
             /// <summary>  
-                        /// 水平分辨率  
-                        /// </summary>  
+            /// 水平分辨率  
+            /// </summary>  
             public ushort Hres1 { get { return BitConverter.ToUInt16(m_Data, 12); } set { SetUshort(12, value); } }
             /// <summary>  
-                        /// 垂直分辨率  
-                        /// </summary>  
+            /// 垂直分辨率  
+            /// </summary>  
             public ushort Vres1 { get { return BitConverter.ToUInt16(m_Data, 14); } set { SetUshort(14, value); } }
 
             public byte[] Palette
@@ -66,24 +66,24 @@ namespace Image_Process
 
             }
             /// <summary>  
-                        /// 位知  
-                        /// </summary>  
+            /// 位知  
+            /// </summary>  
             public byte Reserved { get { return m_Data[64]; } set { m_Data[64] = value; } }
             /// <summary>  
-                        /// 未知  
-                        /// </summary>  
+            /// 未知  
+            /// </summary>  
             public byte Colour_Planes { get { return m_Data[65]; } set { m_Data[65] = value; } }
             /// <summary>  
-                        /// 解码缓冲区  
-                        /// </summary>  
+            /// 解码缓冲区  
+            /// </summary>  
             public ushort Bytes_Per_Line { get { return BitConverter.ToUInt16(m_Data, 66); } set { SetUshort(66, value); } }
             /// <summary>  
-                        /// 位知  
-                        /// </summary>  
+            /// 位知  
+            /// </summary>  
             public ushort Palette_Type { get { return BitConverter.ToUInt16(m_Data, 68); } set { SetUshort(68, value); } }
             /// <summary>  
-                        /// 填充  
-                        /// </summary>  
+            /// 填充  
+            /// </summary>  
             public byte[] Filler
             {
                 get
@@ -115,11 +115,7 @@ namespace Image_Process
 
             public int Height { get { return Ymax - Ymin + 1; } }
 
-            /// <summary>  
-                        /// 设置16位数据保存到数据表  
-                        /// </summary>  
-                        /// <param name="p_Index">索引</param>  
-                        /// <param name="p_Data">数据</param>  
+            
             private void SetUshort(int p_Index, ushort p_Data)
             {
                 byte[] _ValueBytes = BitConverter.GetBytes(p_Data);
@@ -133,8 +129,8 @@ namespace Image_Process
         private Bitmap m_Image;
 
         /// <summary>  
-                /// 获取图形  
-                /// </summary>  
+        /// 讀取圖形  
+        /// </summary>  
         public Bitmap PcxImage { get { return m_Image; } set { m_Image = value; } }
 
         public pcx(string p_FileFullName)
@@ -160,9 +156,9 @@ namespace Image_Process
             header = m_Head;
         }
         /// <summary>  
-                /// 开始获取数据  
+                /// 開始讀取數據  
                 /// </summary>  
-                /// <param name="p_Bytes">PCX文件信息</param>  
+                /// <param name="p_Bytes">PCX文件訊息</param>  
         private void Load(byte[] p_Bytes)
         {
             byte[] _Bytes = p_Bytes;

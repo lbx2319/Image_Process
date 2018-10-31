@@ -63,11 +63,12 @@ namespace Image_Process
 
                     //Gray = (int)(0.3 * r + 0.59 * g + 0.11 * b);
                     Gray = (r + g + b) / 3;
+                   // Gray = (int)(0.59 * r + 0.3 * g + 0.11 * b);
 
                     Histogram[Gray] = Histogram[Gray] + 1;
-                    HistogramR[r] = Histogram[r] + 1;
-                    HistogramG[g] = Histogram[g] + 1;
-                    HistogramB[b] = Histogram[b] + 1;
+                    HistogramR[r] = HistogramR[r] + 1;
+                    HistogramG[g] = HistogramG[g] + 1;
+                    HistogramB[b] = HistogramB[b] + 1;
 
                 }
 
@@ -76,49 +77,96 @@ namespace Image_Process
             //--------------------------------------------------------------
             
             
-            int max = 0;
-            foreach (int i in Histogram) max = max > i ? max : i;
-            Bitmap Bmp = new Bitmap(256, max+10);
-            Bitmap BmpR = new Bitmap(256, max + 10);
-            Bitmap BmpG = new Bitmap(256, max + 10);
-            Bitmap BmpB = new Bitmap(256, max + 10);
+            //int max = 0;
+            //foreach (int i in Histogram) max = max > i ? max : i;
+            //Bitmap Bmp = new Bitmap(256, max+10);
+            Bitmap Bmp = new Bitmap(300, 300);
+            Bitmap BmpR = new Bitmap(300, 300);
+            Bitmap BmpG = new Bitmap(300, 300);
+            Bitmap BmpB = new Bitmap(300, 300);
             Graphics his = Graphics.FromImage(Bmp);
             Graphics hisR = Graphics.FromImage(BmpR);
             Graphics hisG = Graphics.FromImage(BmpG);
             Graphics hisB = Graphics.FromImage(BmpB);
             Pen pen = new Pen(Color.Black);
-                
 
+            his.DrawLine(pen, 10, 0, 10, 270);
+            his.DrawLine(pen, 10, 270, 300, 270);
+            pen.Color = Color.Red;
+            hisR.DrawLine(pen, 10, 0, 10, 270);
+            hisR.DrawLine(pen, 10, 270, 300, 270);
+            pen.Color = Color.Green;
+            hisG.DrawLine(pen, 10, 0, 10, 270);
+            hisG.DrawLine(pen, 10, 270, 300, 270);
+            pen.Color = Color.Blue;
+            hisB.DrawLine(pen, 10, 0, 10, 270);
+            hisB.DrawLine(pen, 10, 270, 300, 270);
 
-            switch(count)
+            switch (count)
             {
                 case 1:
                     
                     pen.Color = Color.Black;
+                    var max = Histogram.Max();
+                    double factor = max / 270;
                     for (int i = 0; i <= 255; i++)
                     {
-                        //his.DrawLine(pen, i, height - Histogram[i] + 10, i, height + 10);
-                        his.DrawLine(pen, 0, i, 0, Histogram[i]);
+                        double x = Histogram[i] / factor;
+                        Console.WriteLine(Histogram[i] + "   "+x);
+                        if (x % 1 != 0)
+                            x += 1;
+                        his.DrawLine(pen, i+11, 270 - (int)x, i + 11, 270);
+                        //his.DrawLine(pen, 0, i, 0, Histogram[i]);
                         //drawhis(his, Histogram, max);
                     }
                     pb.Image = (Image)Bmp;
                     break;
                 case 2:
                     pen.Color = Color.Red;
+                    var maxR = HistogramR.Max();
+                    double factorR = maxR / 270;
                     for (int i = 0; i <= 255; i++)
-                        hisR.DrawLine(pen, i, height - HistogramR[i] + 10, i, height + 10);
+                    {
+                        double x = HistogramR[i] / factorR;
+                        Console.WriteLine(HistogramR[i] + "   " + x);
+                        if (x % 1 != 0)
+                            x += 1;
+                        hisR.DrawLine(pen, i+11, 270 - (int)x, i + 11, 270);
+                        //his.DrawLine(pen, 0, i, 0, Histogram[i]);
+                        //drawhis(his, Histogram, max);
+                    }
                     pb.Image = (Image)BmpR;
                     break;
                 case 3:
                     pen.Color = Color.Green;
+                    var maxG = HistogramG.Max();
+                    double factorG = maxG / 270;
                     for (int i = 0; i <= 255; i++)
-                        hisG.DrawLine(pen, i, height - HistogramG[i] + 10, i, height + 10);
+                    {
+                        double x = (double)HistogramG[i] / factorG;
+                        Console.WriteLine(HistogramG[i] + "   " + x);
+                        if (x % 1 != 0)
+                            x += 1;
+                        hisG.DrawLine(pen, i+11, 270 -(int) x, i + 11, 270);
+                        //his.DrawLine(pen, 0, i, 0, Histogram[i]);
+                        //drawhis(his, Histogram, max);
+                    }
                     pb.Image = (Image)BmpG;
                     break;
                 case 4:
                     pen.Color = Color.Blue;
+                    var maxB = HistogramB.Max();
+                    double factorB = maxB / 270;
                     for (int i = 0; i <= 255; i++)
-                        hisB.DrawLine(pen, i, height - HistogramB[i] + 10, i, height + 10);                
+                    {
+                        double x = ((double)HistogramB[i] / factorB);
+                        Console.WriteLine(HistogramB[i] + "   " + x);
+                        if (x % 1 != 0)
+                            x += 1;
+                        hisB.DrawLine(pen, i+11, 270 - (int)x, i+11, 270);
+                        //his.DrawLine(pen, 0, i, 0, Histogram[i]);
+                        //drawhis(his, Histogram, max);
+                    }
                     pb.Image = (Image)BmpB;
                     count = 0;
                     break;
