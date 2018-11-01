@@ -97,5 +97,11 @@ namespace Image_Process
         {
             pictureBox2.Image = filter.smoothing(currentimage);
         }
+
+        private void rGB分量ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2(currentimage);
+            form2.Show();
+        }
     }
 }
