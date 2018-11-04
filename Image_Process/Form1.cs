@@ -75,7 +75,7 @@ namespace Image_Process
 
         private void invertToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = function.Invert((Bitmap)currentimage);
+            pictureBox2.Image = function.Negative((Bitmap)currentimage);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -102,6 +102,51 @@ namespace Image_Process
         {
             Form2 form2 = new Form2(currentimage);
             form2.Show();
+        }
+
+        private void thresholdingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3(currentimage);
+            form3.Show();
+        }
+
+        private void transparentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4(currentimage);
+            form4.Show();
+        }
+
+        private void bitplaneSlicingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5(currentimage);
+            form5.Show();
+        }
+
+        private void hToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox3.Image = function.mirrorh(currentimage);
+        }
+
+        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox3.Image = function.mirrorv(currentimage);
+        }
+
+        private void diagonalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox3.Image = function.mirrord(currentimage);
+        }
+
+        private void histogramEqualizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = function.gray(currentimage);
+            pictureBox2.Image = function.His_Equal(currentimage);
+        }
+
+        private void contrastStretchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = function.gray(currentimage);
+            pictureBox2.Image = function.contrast_stretch(currentimage);
         }
     }
 }

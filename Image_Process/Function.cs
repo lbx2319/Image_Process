@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,8 +13,10 @@ namespace Image_Process
     class Function
     {
         int count = 1;
-        #region invert
-        public Bitmap Invert(Bitmap inputImg)
+        public int[] Histogram;
+
+        #region negative
+        public Bitmap Negative(Bitmap inputImg)
         {
             Bitmap image = new Bitmap(inputImg);
             for (int y = 0; y < image.Height; y++)
@@ -39,7 +42,7 @@ namespace Image_Process
             int width = image.Width;
             Bitmap process = (Bitmap)image;
             Color pixel;
-            int[] Histogram = new int[256];
+            Histogram = new int[256];
             int[] HistogramR = new int[256];
             int[] HistogramG = new int[256];
             int[] HistogramB = new int[256];
@@ -177,11 +180,7 @@ namespace Image_Process
         }
         
         #endregion histr
-
         
-
-
-
         #region gray
         public Bitmap gray(Image image)
         {
@@ -200,6 +199,115 @@ namespace Image_Process
             }
 
             return bmp;
+        }
+        #endregion
+
+        #region mirror
+        public Bitmap mirrorh(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color c = tempbmp.GetPixel(image.Width - x - 1,y);
+                    bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+
+        public Bitmap mirrorv(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color c = tempbmp.GetPixel(x, image.Height-y-1);
+                    bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+
+        public Bitmap mirrord(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color c = tempbmp.GetPixel(image.Width - x - 1, image.Height - y - 1);
+                    bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+        #endregion
+
+        #region histogram equalization
+        public Bitmap His_Equal(Image image)
+        {
+            Bitmap bitmap = new Bitmap(image);
+            double[] cdf = new double[256];
+
+            cdf[0] = Histogram[0];
+
+            for (int x = 1; x <= 255; x++) cdf[x] = cdf[x - 1] + Histogram[x];
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color c = bitmap.GetPixel( x, y);
+                    int avg = (c.R + c.G + c.B) / 3;
+                    byte newavg = (byte)(((cdf[avg]) / cdf[255]) * 255);
+                    bitmap.SetPixel(x, y, Color.FromArgb(newavg, newavg, newavg));
+                }
+            }
+            return bitmap;
+        }
+        #endregion
+
+        #region contrast stretch
+        public Bitmap contrast_stretch(Image image)
+        {
+            Bitmap bitmap = new Bitmap(image);
+            int max_index=0,min_index=0;
+
+            for (int j = 0; j < 255; j++)
+            {
+                if (Histogram[j] == 0)
+                    min_index = j;
+                else
+                    break;
+            }
+            for (int j = 255; j >= 0; j--)
+            {
+                if (Histogram[j] == 0)
+                    max_index = j;
+                else
+                    break;
+            }
+            //Console.WriteLine("MAX:{0} MIN:{1}", max_index, min_index);
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color c = bitmap.GetPixel(x, y);
+                    double avg = (c.R + c.G + c.B) / 3.0;
+                    double cs = (avg - Convert.ToDouble(min_index)) / (Convert.ToDouble(max_index) - Convert.ToDouble(min_index)) * 255.0;
+                    bitmap.SetPixel(x, y, Color.FromArgb(Convert.ToInt32(cs), Convert.ToInt32(cs), Convert.ToInt32(cs)));
+                }
+            }
+            return bitmap;
         }
         #endregion
     }
