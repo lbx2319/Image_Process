@@ -210,9 +210,24 @@ namespace Image_Process
 
             for (int y = 0; y < image.Height; y++)
             {
-                for (int x = 0; x < image.Width; x++)
+                for (int x = 0; x < image.Width/2; x++)
                 {
                     Color c = tempbmp.GetPixel(image.Width - x - 1,y);
+                    bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+        public Bitmap mirrorh2(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = image.Width/2,i =1; x < image.Width; x++,i++)
+                {
+                    Color c = tempbmp.GetPixel(image.Width/2-i, y);
                     bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
                 }
             }
@@ -224,11 +239,26 @@ namespace Image_Process
             Bitmap tempbmp = new Bitmap(image);
             Bitmap bmp = new Bitmap(image);
 
-            for (int y = 0; y < image.Height; y++)
+            for (int x = 0; x < image.Width; x++)
             {
-                for (int x = 0; x < image.Width; x++)
+                for (int y = 0; y < image.Height/2; y++)
                 {
                     Color c = tempbmp.GetPixel(x, image.Height-y-1);
+                    bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+        public Bitmap mirrorv2(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int x = 0; x < image.Width; x++)
+            {
+                for (int y = image.Height/ 2, i = 1; y < image.Height; y++, i++)
+                {
+                    Color c = tempbmp.GetPixel(x, image.Height/2-i);
                     bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
                 }
             }
@@ -242,10 +272,58 @@ namespace Image_Process
 
             for (int y = 0; y < image.Height; y++)
             {
-                for (int x = 0; x < image.Width; x++)
+                for (int x = y; x < image.Width; x++)
                 {
-                    Color c = tempbmp.GetPixel(image.Width - x - 1, image.Height - y - 1);
+                    Color c = tempbmp.GetPixel(y, x);
                     bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+
+        public Bitmap mirrord2(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = image.Height-1; y >= 0; y--)
+            {
+                for (int x = y; x >=0; x--)
+                {
+                    Color c = tempbmp.GetPixel(y, x);
+                    bmp.SetPixel(x, y, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+
+        public Bitmap mirrord3(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = 0,yy = image.Height-1; y < image.Height; y++,yy--)
+            {
+                for (int x = 0,xx=image.Width-1; x <image.Width-y; x++,xx--)
+                {
+                    Color c = tempbmp.GetPixel(xx, yy);
+                    bmp.SetPixel(y, x, Color.FromArgb(c.R, c.G, c.B));
+                }
+            }
+            return bmp;
+        }
+
+        public Bitmap mirrord4(Image image)
+        {
+            Bitmap tempbmp = new Bitmap(image);
+            Bitmap bmp = new Bitmap(image);
+
+            for (int y = 0, yy = image.Height - 1; y < image.Height; y++, yy--)
+            {
+                for (int x = 0, xx = image.Width - 1; x < image.Width - y; x++, xx--)
+                {
+                    Color c = tempbmp.GetPixel(x, y);
+                    bmp.SetPixel(yy, xx, Color.FromArgb(c.R, c.G, c.B));
                 }
             }
             return bmp;

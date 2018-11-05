@@ -14,7 +14,7 @@ namespace Image_Process
     {
         
         Bitmap img1,img2,frontimg,backimg;
-        Graphics pic ;
+        //Graphics pic ;
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {

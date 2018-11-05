@@ -13,6 +13,7 @@ namespace Image_Process
     class pcx
     {
         public PCXHEAD header;
+        public byte[] data;
         /// <summary>  
         /// PCX文件標頭 
         /// </summary>  
@@ -81,6 +82,10 @@ namespace Image_Process
             /// 位知  
             /// </summary>  
             public ushort Palette_Type { get { return BitConverter.ToUInt16(m_Data, 68); } set { SetUshort(68, value); } }
+            public byte HscreenSize { get { return m_Data[70]; }set { m_Data[70] = value; } }
+            public byte HscreenSize1 { get { return m_Data[71]; } set { m_Data[71] = value; } }
+            public byte VscreenSize { get { return m_Data[72]; } set { m_Data[72] = value; } }
+            public byte VscreenSize1 { get { return m_Data[73]; } set { m_Data[73] = value; } }
             /// <summary>  
             /// 填充  
             /// </summary>  
@@ -162,6 +167,7 @@ namespace Image_Process
         private void Load(byte[] p_Bytes)
         {
             byte[] _Bytes = p_Bytes;
+            data = p_Bytes;
             if (_Bytes[0] != 0x0A) return;
             m_Head = new PCXHEAD(_Bytes);
             m_ReadIndex = 128;
