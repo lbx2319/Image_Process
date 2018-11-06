@@ -222,5 +222,12 @@ namespace Image_Process
             Form7 form7 = new Form7(currentimage);
             form7.Show();
         }
+
+        private void watermarkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBox3.Image = function.watermark(currentimage);
+            Form5 form5 = new Form5(pictureBox3.Image);
+            form5.Show();
+        }
     }
 }

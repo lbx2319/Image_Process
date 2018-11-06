@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +38,7 @@
             this.grayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rGB分量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rotationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thresholdingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transparentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bitplaneSlicingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,7 +96,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.rotationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.watermarkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -133,7 +135,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(51, 27);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(51, 28);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openFileToolStripMenuItem
@@ -156,7 +158,8 @@
             this.bitplaneSlicingToolStripMenuItem,
             this.mirrorToolStripMenuItem,
             this.histogramEqualizationToolStripMenuItem,
-            this.contrastStretchToolStripMenuItem});
+            this.contrastStretchToolStripMenuItem,
+            this.watermarkToolStripMenuItem});
             this.functionToolStripMenuItem.Enabled = false;
             this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
             this.functionToolStripMenuItem.Size = new System.Drawing.Size(96, 28);
@@ -189,6 +192,14 @@
             this.zoomToolStripMenuItem.Size = new System.Drawing.Size(292, 30);
             this.zoomToolStripMenuItem.Text = "Zoom";
             this.zoomToolStripMenuItem.Click += new System.EventHandler(this.zoomToolStripMenuItem_Click);
+            // 
+            // rotationToolStripMenuItem
+            // 
+            this.rotationToolStripMenuItem.Enabled = false;
+            this.rotationToolStripMenuItem.Name = "rotationToolStripMenuItem";
+            this.rotationToolStripMenuItem.Size = new System.Drawing.Size(292, 30);
+            this.rotationToolStripMenuItem.Text = "Rotation";
+            this.rotationToolStripMenuItem.Click += new System.EventHandler(this.rotationToolStripMenuItem_Click);
             // 
             // thresholdingToolStripMenuItem
             // 
@@ -302,7 +313,7 @@
             this.smoothingToolStripMenuItem});
             this.filterToolStripMenuItem.Enabled = false;
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(65, 27);
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(65, 28);
             this.filterToolStripMenuItem.Text = "Filter";
             // 
             // smoothingToolStripMenuItem
@@ -315,7 +326,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(52, 141);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(323, 311);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -326,7 +337,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(597, 141);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(339, 311);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -336,7 +347,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Location = new System.Drawing.Point(52, 616);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(323, 316);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -381,7 +392,7 @@
             // pictureBox4
             // 
             this.pictureBox4.Location = new System.Drawing.Point(597, 573);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(542, 418);
             this.pictureBox4.TabIndex = 5;
@@ -696,18 +707,18 @@
             // pictureBox5
             // 
             this.pictureBox5.Location = new System.Drawing.Point(1264, 639);
-            this.pictureBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox5.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(375, 375);
             this.pictureBox5.TabIndex = 40;
             this.pictureBox5.TabStop = false;
             // 
-            // rotationToolStripMenuItem
+            // watermarkToolStripMenuItem
             // 
-            this.rotationToolStripMenuItem.Name = "rotationToolStripMenuItem";
-            this.rotationToolStripMenuItem.Size = new System.Drawing.Size(292, 30);
-            this.rotationToolStripMenuItem.Text = "Rotation";
-            this.rotationToolStripMenuItem.Click += new System.EventHandler(this.rotationToolStripMenuItem_Click);
+            this.watermarkToolStripMenuItem.Name = "watermarkToolStripMenuItem";
+            this.watermarkToolStripMenuItem.Size = new System.Drawing.Size(292, 30);
+            this.watermarkToolStripMenuItem.Text = "Watermark";
+            this.watermarkToolStripMenuItem.Click += new System.EventHandler(this.watermarkToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -755,8 +766,9 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.menuStrip2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Image Process";
             this.menuStrip2.ResumeLayout(false);
@@ -842,5 +854,6 @@
         private System.Windows.Forms.ToolStripMenuItem diagonalToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem diagonalvToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rotationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem watermarkToolStripMenuItem;
     }
 }

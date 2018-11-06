@@ -115,7 +115,7 @@ namespace Image_Process
                     for (int i = 0; i <= 255; i++)
                     {
                         double x = Histogram[i] / factor;
-                        Console.WriteLine(Histogram[i] + "   "+x);
+                        //Console.WriteLine(Histogram[i] + "   "+x);
                         if (x % 1 != 0)
                             x += 1;
                         his.DrawLine(pen, i+11, 270 - (int)x, i + 11, 270);
@@ -131,7 +131,7 @@ namespace Image_Process
                     for (int i = 0; i <= 255; i++)
                     {
                         double x = HistogramR[i] / factorR;
-                        Console.WriteLine(HistogramR[i] + "   " + x);
+                        //Console.WriteLine(HistogramR[i] + "   " + x);
                         if (x % 1 != 0)
                             x += 1;
                         hisR.DrawLine(pen, i+11, 270 - (int)x, i + 11, 270);
@@ -147,7 +147,7 @@ namespace Image_Process
                     for (int i = 0; i <= 255; i++)
                     {
                         double x = (double)HistogramG[i] / factorG;
-                        Console.WriteLine(HistogramG[i] + "   " + x);
+                        //Console.WriteLine(HistogramG[i] + "   " + x);
                         if (x % 1 != 0)
                             x += 1;
                         hisG.DrawLine(pen, i+11, 270 -(int) x, i + 11, 270);
@@ -163,7 +163,7 @@ namespace Image_Process
                     for (int i = 0; i <= 255; i++)
                     {
                         double x = ((double)HistogramB[i] / factorB);
-                        Console.WriteLine(HistogramB[i] + "   " + x);
+                        //Console.WriteLine(HistogramB[i] + "   " + x);
                         if (x % 1 != 0)
                             x += 1;
                         hisB.DrawLine(pen, i+11, 270 - (int)x, i+11, 270);
@@ -386,6 +386,29 @@ namespace Image_Process
                 }
             }
             return bitmap;
+        }
+        #endregion
+
+        #region watermark
+
+        public Bitmap watermark(Image image)
+        {
+            Bitmap bmp = new Bitmap(image);
+
+            int mask = 0x01;
+            Bitmap bmp_0 = new Bitmap(image);
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    Color c = bmp.GetPixel(x, y);
+                    int gray = (c.R + c.G + c.B) / 3;
+                    int newgray = (gray | mask);
+                    
+                    bmp_0.SetPixel(x, y, Color.FromArgb(newgray, newgray, newgray));
+                }
+            }
+            return bmp_0;
         }
         #endregion
     }
