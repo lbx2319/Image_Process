@@ -132,7 +132,7 @@ namespace Image_Process
 
         private void rGB分量ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(currentimage);
+            RGB form2 = new RGB(currentimage);
             form2.Show();
         }
 
@@ -215,6 +215,12 @@ namespace Image_Process
         private void diagonalvToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox3.Image = function.mirrord4(currentimage);
+        }
+
+        private void rotationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form7 form7 = new Form7(currentimage);
+            form7.Show();
         }
     }
 }

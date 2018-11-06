@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Image_Process
 {
-    public partial class Form2 : Form
+    public partial class RGB : Form
     {
-        public Form2(Image inputImage)
+        public RGB(Image inputImage)
         {
             InitializeComponent();
             Bitmap bmp = new Bitmap(inputImage);
